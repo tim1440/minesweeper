@@ -3,6 +3,11 @@ This is a very minimal implementation of minesweeper in F#. This is also my very
 
 It contains only one minesweeper.fsx which contains a minimal and simplistic version of the classic Minesweeper game. The game runs through the terminal.
 
+## How to run
+Navigate to it in the terminal and just run the command 'dotnet fsi minesweeper.fsx'.
+
+Commands: r for reveal, f for flag, and x y for coordinates.
+
 # What I have learned
 This project wasn't all too difficult since I spent the majority of my first semester coding in F#, however a couple of things really tripped me up at first, and those were system specific. I chose Minesweeper specifically because it is my replacement game for doomscrolling and I have developed an adoration for the game. 
 
