@@ -33,7 +33,7 @@ let placeMines (board: Cell[][]) =
     |> Array.iter (fun i ->
         let y = i / width
         let x = i % height
-        board[y][x] <- { board[y][x] with Mine = true})
+        board[y][x] <- { board[y][x] with Mine = true })
     board
 
 // for marking both mines and adjacent cells
