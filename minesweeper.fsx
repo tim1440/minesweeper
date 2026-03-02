@@ -36,7 +36,7 @@ let placeMines (board: Cell[][]) =
         board[y][x] <- { board[y][x] with Mine = true})
     board
 
-
+// for marking both mines and adjacent cells
 let directions =
         [(-1, -1); (0, -1); (1, -1);
         (-1, 0);         (1, 0);
@@ -120,30 +120,33 @@ let rec gameLoop (board: Cell[][]) =
 
     match Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries) with
     | [| cmd; sx; sy |] ->
-    match Int32.TryParse sx, Int32.TryParse sy with
-    | (true, x), (true, y)
-        when x >= 0 && x < width && y >= 0 && y < height ->
-            let cell = board[y][x]
-            match cmd with
-            | "f" ->
-                cellFlagged board x y |> ignore
-                gameLoop board
-            | "r" ->
-                if cell.Mine then
-                    printBoard board true
-                    printfn "Game Over!!"
-                    Console.ReadKey() |> ignore
-                else 
-                    reveal board x y
-                    match hasWon board with
-                    | true -> 
+
+        match Int32.TryParse sx, Int32.TryParse sy with
+        | (true, x), (true, y)
+            when x >= 0 && x < width && y >= 0 && y < height ->
+                let cell = board[y][x]
+                
+                match cmd with
+                | "f" ->
+                    cellFlagged board x y |> ignore
+                    gameLoop board
+                | "r" ->
+                    if cell.Mine then
                         printBoard board true
-                        printfn "You win!!"
+                        printfn "Game Over!!"
                         Console.ReadKey() |> ignore
-                    | false ->
-                        gameLoop board
+                    else 
+                        reveal board x y
+                        match hasWon board with
+                        | true -> 
+                            printBoard board true
+                            printfn "You win!!"
+                            Console.ReadKey() |> ignore
+                        | false ->
+                            gameLoop board
+                | _ -> gameLoop board
             | _ -> gameLoop board
-        | _ -> gameLoop board
+    | [|_; _; _; _|] -> gameLoop board
     | _ -> gameLoop board
 
 
